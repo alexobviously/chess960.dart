@@ -26,7 +26,7 @@ void main() {
 ```
 ## Documentation
 
-The chess.js documentation is largely relevant, but see also the docs on [pub.dev](https://pub.dev/documentation/chess960/latest/)
+The chess.js documentation is largely relevant, but there are also DartDocs generated within the lib/docs directory. The only change in naming from chess.js, is that history() has been changed to getHistory() due to a conflict with the history ivar and some methods have been changed into properties.
 
 ### Versioning
 
@@ -51,5 +51,5 @@ dart test/ai.dart
 ## Links
 - [chess.dart](https://pub.dev/packages/chess)
 - [chess.js](https://github.com/jhlywa/chess.js)
-- [Wikipedia's Article on FEN Format](https://en.wikipedia.org/wiki/Forsyth–Edwards_Notation)
-- [Wikipedia's Article on PGN Format](https://en.wikipedia.org/wiki/Portable_Game_Notation)
+- [Wikipedia's Article on FEN Format](http://en.wikipedia.org/wiki/Forsyth–Edwards_Notation)
+- [Wikipedia's Article on PGN Format](http://en.wikipedia.org/wiki/Portable_Game_Notation)
