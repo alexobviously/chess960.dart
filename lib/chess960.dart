@@ -634,7 +634,11 @@ class Chess960 {
     var single_square = false;
 
     /* do we want legal moves? */
-    final legal = (options != null && options.containsKey('legal')) ? options['legal'] : true;
+    bool legal = (options != null && options.containsKey('legal')) ? options['legal'] : true;
+    // Do we want to generate *all* moves? Useful for generating premoves.
+    // For example, if allMoves = true, this will return moves where you can capture your own pieces.
+    bool allMoves = (options != null && options.containsKey('all')) ? options['all'] : false;
+    if(allMoves) legal = false;
 
     /* are we generating moves for a single square? */
     if (options != null && options.containsKey('square')) {
@@ -662,12 +666,12 @@ class Chess960 {
       if (piece.type == PAWN) {
         /* single square, non-capturing */
         final square = i + PAWN_OFFSETS[us]![0];
-        if (board[square] == null) {
+        if (board[square] == null || allMoves) {
           add_move(board, moves, i, square, BITS_NORMAL);
 
           /* double square */
           final square2 = i + PAWN_OFFSETS[us]![1];
-          if (second_rank[us] == rank(i) && board[square2] == null) {
+          if (second_rank[us] == rank(i) && (board[square2] == null || allMoves)) {
             add_move(board, moves, i, square2, BITS_BIG_PAWN);
           }
         }
@@ -676,6 +680,11 @@ class Chess960 {
         for (var j = 2; j < 4; j++) {
           var square = i + PAWN_OFFSETS[us]![j];
           if ((square & 0x88) != 0) continue;
+
+          if(allMoves) {
+            add_move(board, moves, i, square, BITS_NORMAL);
+            continue;
+          }
 
           if (board[square] != null && board[square]!.color == them) {
             add_move(board, moves, i, square, BITS_CAPTURE);
@@ -696,11 +705,13 @@ class Chess960 {
             if (board[square] == null) {
               add_move(board, moves, i, square, BITS_NORMAL);
             } else {
-              if (board[square]!.color == us) {
-                break;
+              if(allMoves) {
+                add_move(board, moves, i, square, BITS_NORMAL);
+              } else if (board[square]!.color != us) {
+                add_move(board, moves, i, square, BITS_CAPTURE);
               }
-              add_move(board, moves, i, square, BITS_CAPTURE);
-              break;
+              
+              if(!allMoves) break;
             }
 
             /* break, if knight or king */
@@ -718,7 +729,7 @@ class Chess960 {
         final castling_from = kings[us];
         final castling_to = castling_from + 2;
 
-        if (board[castling_from + 1] == null && board[castling_to] == null && !attacked(them, kings[us]) && !attacked(them, castling_from + 1) && !attacked(them, castling_to)) {
+        if (allMoves || (board[castling_from + 1] == null && board[castling_to] == null && !attacked(them, kings[us]) && !attacked(them, castling_from + 1) && !attacked(them, castling_to))) {
           add_move(board, moves, kings[us], castling_to, BITS_KSIDE_CASTLE);
         }
       }
@@ -728,7 +739,7 @@ class Chess960 {
         final castling_from = kings[us];
         final castling_to = castling_from - 2;
 
-        if (board[castling_from - 1] == null && board[castling_from - 2] == null && board[castling_from - 3] == null && !attacked(them, kings[us]) && !attacked(them, castling_from - 1) && !attacked(them, castling_to)) {
+        if (allMoves || (board[castling_from - 1] == null && board[castling_from - 2] == null && board[castling_from - 3] == null && !attacked(them, kings[us]) && !attacked(them, castling_from - 1) && !attacked(them, castling_to))) {
           add_move(board, moves, kings[us], castling_to, BITS_QSIDE_CASTLE);
         }
       }
@@ -1298,12 +1309,16 @@ class Chess960 {
     return moves;
   }
 
+  // Gets moves that the opponent could possibly play on their next turn
   List premoves([Map? options]) {
-    if(options == null) options = {'legal': false};
-    if(options['legal'] == null || options['legal'] != false) options['legal'] = false;
-    swap_sides();
-    List _moves = moves(options);
-    swap_sides();
+    if(options == null) options = {'all': true};
+    if(options['all'] == null || !options['all']) options['all'] = true;
+    // asObjects needs to be true, because the pretty SAN move functions call
+    // undo_move, which will crash with premoves
+    if(options['asObjects'] == null || !options['asObjects']) options['asObjects'] = true;
+    Chess960 copy = this.copy();
+    copy.swap_sides();
+    List _moves = copy.moves(options);
     return _moves;
   }
 
@@ -1712,6 +1727,12 @@ class Move {
 
   String get toAlgebraic {
     return Chess960.algebraic(to);
+  }
+
+  String get algebraic {
+    String m = this.fromAlgebraic + this.toAlgebraic;
+    if (this.promotion != null) m += this.promotion!.name;
+    return m;
   }
 }
 
