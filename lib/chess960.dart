@@ -162,9 +162,8 @@ class Chess960 {
   List<State> history = [];
   Map header = {};
 
-  /// By default start with the standard chess starting position
   Chess960() {
-    load(DEFAULT_POSITION);
+    load(random_start_fen());
   }
 
   /// Start with a position from a FEN
@@ -264,7 +263,18 @@ class Chess960 {
     return true;
   }
 
-  static List<PieceType> random_start_pos() {
+  static String random_start_fen() => pieces_to_start_fen(random_start_pieces());
+
+  static String pieces_to_start_fen(List<PieceType> pieces) {
+    assert(pieces.length == 8);
+    String blackPieces = pieces.map((p) => p.toLowerCase()).join('');
+    String whitePieces = pieces.map((p) => p.toUpperCase()).join('');
+    String pawns = 'p' * 8;
+    String _fen = '$blackPieces/$pawns/8/8/${pawns.toUpperCase()}/$whitePieces w KQkq - 0 1';
+    return _fen;
+  }
+
+  static List<PieceType> random_start_pieces() {
     List<int> squares = Iterable<int>.generate(8).toList();
     List<PieceType?> pieces = List.filled(8, null);
     Random r = Random();
