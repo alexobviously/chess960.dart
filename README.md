@@ -1,11 +1,10 @@
-chess.dart
+chess960.dart
 ==========
 
-chess.dart is a library for legal chess move generation, maintenance of chess game state, and conversion to and from the formats FEN and PGN.  It has no external dependencies.
+chess960.dart is based on [chess.dart](https://pub.dev/packages/chess), with some light modifications
+to adapt it to [Chess 960](https://en.wikipedia.org/wiki/Fischer_random_chess) rules.
 
-It is a port of chess.js to Dart.  It aims to include all of the functionality in the original library, while making the API a little bit more Dart-like. In limited testing, the Dart version (after some refactoring) now outperforms the JavaScript original. 
-
-At this early stage, it is working, and passes all of the unit tests which come with chess.js (which you can find in the *test* directory). However, beyond this, it is not tested in production.
+It handles legal chess move generation, maintenance of chess game state, and conversion to and from the FEN and PGN formats.  It has no external dependencies.
 
 ## A Random Game
 
@@ -31,7 +30,7 @@ The chess.js documentation is largely relevant, but there are also DartDocs gene
 
 ### Versioning
 
-chess.dart version 0.6.5 and above requires Dart 2. For Dart 1, use version 0.6.4.
+Dart 2 is required.
 
 ### Testing
 
@@ -50,6 +49,7 @@ dart test/ai.dart
 ```
 
 ## Links
+- [chess.dart](https://pub.dev/packages/chess)
 - [chess.js](https://github.com/jhlywa/chess.js)
 - [Wikipedia's Article on FEN Format](http://en.wikipedia.org/wiki/Forsyth–Edwards_Notation)
 - [Wikipedia's Article on PGN Format](http://en.wikipedia.org/wiki/Portable_Game_Notation)
