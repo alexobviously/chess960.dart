@@ -1,5 +1,7 @@
 library chess960;
 
+import 'dart:math';
+
 /*  Copyright (c) 2014, David Kopec (my first name at oaksnow dot com)
  *  Released under the MIT license
  *  https://github.com/davecom/chess.dart/blob/master/LICENSE
@@ -260,6 +262,36 @@ class Chess960 {
     update_setup(generate_fen());
 
     return true;
+  }
+
+  static List<PieceType> random_start_pos() {
+    List<int> squares = Iterable<int>.generate(8).toList();
+    List<PieceType?> pieces = List.filled(8, null);
+    Random r = Random();
+
+    void placePiece(int sq, PieceType pt) {
+      pieces[sq] = pt;
+      squares.remove(sq);
+    }
+
+    int randomSquare() => squares[r.nextInt(squares.length)];
+    
+    // Place bishops
+    List<int> bishops = [r.nextInt(4) * 2, r.nextInt(4) * 2 +1 ];
+    for(int x in bishops) placePiece(x, PieceType.BISHOP);
+
+    // Place queen
+    placePiece(randomSquare(), PieceType.QUEEN);
+
+    // Place knights
+    for(int _ in [0,0]) placePiece(randomSquare(), PieceType.KNIGHT);
+
+    // Place rooks and king
+    placePiece(squares.first, PieceType.ROOK);
+    placePiece(squares.first, PieceType.KING);
+    placePiece(squares.first, PieceType.ROOK);
+
+    return pieces.map<PieceType>((p) => p!).toList();
   }
 
   /// Check the formatting of a FEN String is correct
