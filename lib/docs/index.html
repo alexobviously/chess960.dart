@@ -1,40 +1,151 @@
-        <!DOCTYPE html>
-        <html>
-        <head>
-                <meta charset="utf-8">
-        <title>Dart Documentation / Dart Documentation</title>
-        <link rel="stylesheet" type="text/css"
-            href="styles.css">
-        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
-        <link rel="shortcut icon" href="favicon.ico">
-        
-        </head>
-        <body>
-        <div class="page">
-        <div class="header">
-          <a href="index.html"><div class="logo"></div></a>
-          <a href="index.html">Dart Documentation</a>
-                <div id="search-box">
-          <input type="search" name="q" id="q" autocomplete="off"
-              class="search-input" placeholder="Search API">
-        </div>
-        
-      </div>
-      <div class="drop-down" id="drop-down"></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="generator" content="made with love by dartdoc 1.0.0">
+  <meta name="description" content="chess960 API docs, for the Dart programming language.">
+  <title>chess960 - Dart API docs</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <link rel="stylesheet" href="static-assets/github.css?v1">
+  <link rel="stylesheet" href="static-assets/styles.css?v1">
+  <link rel="icon" href="static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href=""
+      data-using-base-href="false">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="https://github.com/alexobviously/chess960.dart">chess960 package</a></li>
+  </ol>
+  <div class="self-name">chess960</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<main>
+
+
+  <div id="dartdoc-main-content" class="main-content">
       
-        <div class="nav">
-        
-<h2><div class="icon-library"></div><a href="chess.html">chess</a></h2></div>
-<div class="content">
-<h2>Dart Documentation</h2>
-<h3>Libraries</h3>
-<h4><a href="chess.html">chess</a></h4>
-        </div>
-        <div class="clear"></div>
-        </div>
-        <div class="footer">
-          <div>This page was generated at 2014-02-01 15:02:53.572</div>
-        </div>
-        <script async src="client-static.js"></script>
-        </body></html>
-        
+<section class="desc markdown">
+  <h1 id="chess960dart">chess960.dart</h1>
+<p>chess960.dart is based on <a href="https://pub.dev/packages/chess">chess.dart</a>, with some light modifications
+to adapt it to <a href="https://en.wikipedia.org/wiki/Fischer_random_chess">Chess 960</a> rules.</p>
+<p>It handles legal chess move generation, maintenance of chess game state, and conversion to and from the FEN and PGN formats.  It has no external dependencies.</p>
+<h2 id="a-random-game">A Random Game</h2>
+<pre class="language-dart"><code class="language-dart">import "package:chess960/chess960.dart";
+
+void main() {
+  Chess960 chess = new Chess960();
+  while (!chess.game_over) {
+    print('position: ' + chess.fen);
+    print(chess.ascii);
+    var moves = chess.moves();
+    moves.shuffle();
+    var move = moves[0];
+    chess.move(move);
+    print('move: ' + move);
+  }
+}
+</code></pre>
+<h2 id="documentation">Documentation</h2>
+<p>The chess.js documentation is largely relevant, but there are also DartDocs generated within the lib/docs directory. The only change in naming from chess.js, is that history() has been changed to getHistory() due to a conflict with the history ivar and some methods have been changed into properties.</p>
+<h3 id="versioning">Versioning</h3>
+<p>Dart 2 is required.</p>
+<h3 id="testing">Testing</h3>
+<p>The <em>test</em> directory contains <em>tests.dart</em> which is a port of chess.js's unit tests. The program <em>random.dart</em> plays a random game of chess. <em>ai.dart</em> is an example of a simple 4 ply alpha beta search for black (yes a simple chess-playing program) that uses a purely material evaluation function (it is rather slow). You can run the unit tests using pub:</p>
+<pre class="language-dart"><code class="language-dart">pub get
+pub run test/tests.dart
+</code></pre>
+<p>And you can also run performance tests.</p>
+<pre class="language-dart"><code class="language-dart">pub run test/perft.dart
+</code></pre>
+<p>And, finally you can run the simple AI:</p>
+<pre class="language-dart"><code class="language-dart">dart test/ai.dart
+</code></pre>
+<h2 id="links">Links</h2>
+<ul>
+<li><a href="https://pub.dev/packages/chess">chess.dart</a></li>
+<li><a href="https://github.com/jhlywa/chess.js">chess.js</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Forsyth–Edwards_Notation">Wikipedia's Article on FEN Format</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Portable_Game_Notation">Wikipedia's Article on PGN Format</a></li>
+</ul>
+</section>
+
+
+      <section class="summary">
+          <h2>Libraries</h2>
+        <dl>
+          <dt id="chess960">
+  <span class="name"><a href="chess960/chess960-library.html">chess960</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+        </dl>
+      </section>
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+  <li><a href="https://github.com/alexobviously/chess960.dart">chess960 package</a></li>
+</ol>
+
+
+    <h5 class="hidden-xs"><span class="package-name">chess960</span> <span class="package-kind">package</span></h5>
+    <ol>
+      <li class="section-title">Libraries</li>
+      <li><a href="chess960/chess960-library.html">chess960</a></li>
+</ol>
+
+  </div>
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div>
+
+</main>
+
+<footer>
+  <span class="no-break">
+    chess960
+      1.0.0
+  </span>
+
+  
+</footer>
+
+
+
+<script src="static-assets/highlight.pack.js?v1"></script>
+<script src="static-assets/script.js?v1"></script>
+
+
+
+</body>
+
+</html>
+

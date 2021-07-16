@@ -9,10 +9,10 @@ It handles legal chess move generation, maintenance of chess game state, and con
 ## A Random Game
 
 ```dart
-import "package:chess960/chess.dart";
+import "package:chess960/chess960.dart";
 
 void main() {
-  Chess chess = new Chess();
+  Chess960 chess = new Chess960();
   while (!chess.game_over) {
     print('position: ' + chess.fen);
     print(chess.ascii);
