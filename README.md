@@ -10,7 +10,7 @@ At this early stage, it is working, and passes all of the unit tests which come 
 ## A Random Game
 
 ```dart
-import "package:chess/chess.dart";
+import "package:chess960/chess.dart";
 
 void main() {
   Chess chess = new Chess();

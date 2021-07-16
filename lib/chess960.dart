@@ -1,4 +1,4 @@
-library chess;
+library chess960;
 
 /*  Copyright (c) 2014, David Kopec (my first name at oaksnow dot com)
  *  Released under the MIT license
@@ -10,7 +10,7 @@ library chess;
  *  https://github.com/jhlywa/chess.js/blob/master/LICENSE
  */
 
-class Chess {
+class Chess960 {
 
   // Constants/Class Variables
   static const Color BLACK = Color.BLACK;
@@ -161,18 +161,18 @@ class Chess {
   Map header = {};
 
   /// By default start with the standard chess starting position
-  Chess() {
+  Chess960() {
     load(DEFAULT_POSITION);
   }
 
   /// Start with a position from a FEN
-  Chess.fromFEN(String fen) {
+  Chess960.fromFEN(String fen) {
     load(fen);
   }
 
   /// Deep copy of the current Chess instance
-  Chess copy() {
-    return Chess()
+  Chess960 copy() {
+    return Chess960()
       ..board = List<Piece?>.from(board)
       ..kings = ColorMap<int>.clone(kings)
       ..turn = turn
@@ -1645,11 +1645,11 @@ class Move {
   const Move(this.color, this.from, this.to, this.flags, this.piece, this.captured, this.promotion);
 
   String get fromAlgebraic {
-    return Chess.algebraic(from);
+    return Chess960.algebraic(from);
   }
 
   String get toAlgebraic {
-    return Chess.algebraic(to);
+    return Chess960.algebraic(to);
   }
 }
 

@@ -1,7 +1,7 @@
-import 'package:chess/chess.dart';
+import 'package:chess960/chess960.dart';
 
 void main() {
-  final chess = Chess();
+  final chess = Chess960();
   print(chess.ascii);
   while (!chess.game_over) {
     print('position: ' + chess.fen);

@@ -1,11 +1,11 @@
-import 'package:chess/chess.dart';
+import 'package:chess960/chess960.dart';
 import 'package:benchmark_harness/benchmark_harness.dart';
 
 class PerftBenchmark extends BenchmarkBase {
   final String fen;
   final int depth;
   final int nodes;
-  Chess? chess;
+  Chess960? chess;
 
   PerftBenchmark(String fen, this.depth, this.nodes)
       : fen = fen
@@ -13,7 +13,7 @@ class PerftBenchmark extends BenchmarkBase {
 
   @override
   void setup() {
-    chess = Chess();
+    chess = Chess960();
     chess!.load(fen);
   }
 

@@ -1,4 +1,4 @@
-import 'package:chess/chess.dart';
+import 'package:chess960/chess960.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -15,7 +15,7 @@ void main() {
     ];
 
     perfts.forEach((perft) {
-      final chess = Chess();
+      final chess = Chess960();
       chess.load(perft['fen']);
 
       test(perft['fen'], () {
@@ -46,17 +46,17 @@ void main() {
       {'fen': '8/7K/8/8/1R6/k7/1R1p4/8 b - - 0 1',
         'square': 'd2', 'verbose': true,
         'moves':
-          [{'color':Chess.BLACK, 'from':'d2', 'to':'d1', 'flags':'np', 'piece':Chess.PAWN, 'promotion':Chess.QUEEN, 'san':'d1=Q'},
-           {'color':Chess.BLACK, 'from':'d2', 'to':'d1', 'flags':'np', 'piece':Chess.PAWN, 'promotion':Chess.ROOK, 'san':'d1=R'},
-           {'color':Chess.BLACK, 'from':'d2', 'to':'d1', 'flags':'np', 'piece':Chess.PAWN, 'promotion':Chess.BISHOP, 'san':'d1=B'},
-           {'color':Chess.BLACK, 'from':'d2', 'to':'d1', 'flags':'np', 'piece':Chess.PAWN, 'promotion':Chess.KNIGHT, 'san':'d1=N'}]
+          [{'color':Chess960.BLACK, 'from':'d2', 'to':'d1', 'flags':'np', 'piece':Chess960.PAWN, 'promotion':Chess960.QUEEN, 'san':'d1=Q'},
+           {'color':Chess960.BLACK, 'from':'d2', 'to':'d1', 'flags':'np', 'piece':Chess960.PAWN, 'promotion':Chess960.ROOK, 'san':'d1=R'},
+           {'color':Chess960.BLACK, 'from':'d2', 'to':'d1', 'flags':'np', 'piece':Chess960.PAWN, 'promotion':Chess960.BISHOP, 'san':'d1=B'},
+           {'color':Chess960.BLACK, 'from':'d2', 'to':'d1', 'flags':'np', 'piece':Chess960.PAWN, 'promotion':Chess960.KNIGHT, 'san':'d1=N'}]
       }, // verbose
       {'fen': 'rnbqk2r/ppp1pp1p/5n1b/3p2pQ/1P2P3/B1N5/P1PP1PPP/R3KBNR b KQkq - 3 5',
         'square': 'f1', 'verbose': true, 'moves': []},  // issue #30
     ];
 
     positions.forEach((position) {
-      final chess = Chess();
+      final chess = Chess960();
       chess.load(position['fen']);
 
       test(position['fen'] + ' ' + position['square'], () {
@@ -84,7 +84,7 @@ void main() {
 
   group('Checkmate', () {
 
-    final chess = Chess();
+    final chess = Chess960();
     const checkmates = [
       '8/5r2/4K1q1/4p3/3k4/8/8/8 w - - 0 7',
       '4r2r/p6p/1pnN2p1/kQp5/3pPq2/3P4/PPP3PP/R5K1 b - - 0 2',
@@ -111,7 +111,7 @@ void main() {
     ];
 
     stalemates.forEach((stalemate) {
-      final chess = Chess();
+      final chess = Chess960();
       chess.load(stalemate);
 
       test(stalemate, () {
@@ -139,7 +139,7 @@ void main() {
     ];
 
     positions.forEach( (position) {
-      final chess = Chess();
+      final chess = Chess960();
       chess.load(position['fen']);
 
       test(position['fen'], () {
@@ -167,7 +167,7 @@ void main() {
     ];
 
     positions.forEach( (position) {
-      final chess = Chess();
+      final chess = Chess960();
       chess.load(position['fen']);
 
       test(position['fen'], () {
@@ -231,7 +231,7 @@ void main() {
     ];
 
     positions.forEach( (position) {
-      final chess = Chess();
+      final chess = Chess960();
       var passed = true;
       chess.load(position['fen']);
 
@@ -258,24 +258,24 @@ void main() {
 
   group('Get/Put/Remove', () {
 
-    final chess = Chess();
+    final chess = Chess960();
     var passed = true;
     final positions = <Map<String, dynamic>>[
-      {'pieces': {'a7': Piece(Chess.PAWN, Chess.WHITE),
-                'b7': Piece(Chess.PAWN, Chess.BLACK),
-                'c7': Piece(Chess.KNIGHT, Chess.WHITE),
-                'd7': Piece(Chess.KNIGHT, Chess.BLACK),
-                'e7': Piece(Chess.BISHOP, Chess.WHITE),
-                'f7': Piece(Chess.BISHOP, Chess.BLACK),
-                'g7': Piece(Chess.ROOK, Chess.WHITE),
-                'h7': Piece(Chess.ROOK, Chess.BLACK),
-                'a6': Piece(Chess.QUEEN, Chess.WHITE),
-                'b6': Piece(Chess.QUEEN, Chess.BLACK),
-                'a4': Piece(Chess.KING, Chess.WHITE),
-                'h4': Piece(Chess.KING, Chess.BLACK)},
+      {'pieces': {'a7': Piece(Chess960.PAWN, Chess960.WHITE),
+                'b7': Piece(Chess960.PAWN, Chess960.BLACK),
+                'c7': Piece(Chess960.KNIGHT, Chess960.WHITE),
+                'd7': Piece(Chess960.KNIGHT, Chess960.BLACK),
+                'e7': Piece(Chess960.BISHOP, Chess960.WHITE),
+                'f7': Piece(Chess960.BISHOP, Chess960.BLACK),
+                'g7': Piece(Chess960.ROOK, Chess960.WHITE),
+                'h7': Piece(Chess960.ROOK, Chess960.BLACK),
+                'a6': Piece(Chess960.QUEEN, Chess960.WHITE),
+                'b6': Piece(Chess960.QUEEN, Chess960.BLACK),
+                'a4': Piece(Chess960.KING, Chess960.WHITE),
+                'h4': Piece(Chess960.KING, Chess960.BLACK)},
        'should_pass': true},
 
-      {'pieces': {'j4': Piece(Chess.PAWN, Chess.WHITE)}, // bad square
+      {'pieces': {'j4': Piece(Chess960.PAWN, Chess960.WHITE)}, // bad square
        'should_pass': false},
     ];
 
@@ -294,7 +294,7 @@ void main() {
         /* iterate over every square to make sure get returns the proper
          * piece values/color
          */
-        for (var square in Chess.SQUARES.keys) {
+        for (var square in Chess960.SQUARES.keys) {
           if (!(position['pieces'].containsKey(square))) {
             if (chess.get(square) != null) {
               passed = false;
@@ -313,7 +313,7 @@ void main() {
 
         if (passed) {
           /* remove the pieces */
-          for (var square in Chess.SQUARES.keys) {
+          for (var square in Chess960.SQUARES.keys) {
             final piece = chess.remove(square);
             if ((!(position['pieces'].containsKey(square))) && piece != null) {
               passed = false;
@@ -364,7 +364,7 @@ void main() {
     ];
 
     positions.forEach( (position) {
-      final chess = Chess();
+      final chess = Chess960();
 
       test(position['fen'].toString() + ' (' + position['should_pass'].toString() + ')', () {
         chess.load(position['fen'] as String);
@@ -424,7 +424,7 @@ void main() {
     positions.forEach((position) {
 
       test(position['fen'], () {
-        final chess = (position.containsKey('starting_position')) ? Chess.fromFEN(position['starting_position']) : Chess();
+        final chess = (position.containsKey('starting_position')) ? Chess960.fromFEN(position['starting_position']) : Chess960();
         var passed = true;
         var error_message = '';
         for (var j = 0; j < position['moves'].length; j++) {
@@ -450,7 +450,7 @@ void main() {
 
   group('Load PGN', () {
 
-    final chess = Chess();
+    final chess = Chess960();
     const tests = <Map<String, dynamic>>[
        {'pgn': [
          '[Event "Reykjavik WCh"]',
@@ -609,16 +609,16 @@ void main() {
        'legal': true,
        'move': 'fxe6',
        'next': 'rnbqkbnr/pp3ppp/2ppP3/8/4P3/8/PPPP2PP/RNBQKBNR b KQkq - 0 1',
-       'captured': Chess.PAWN},
+       'captured': Chess960.PAWN},
       {'fen': 'rnbqkbnr/pppp2pp/8/4p3/4Pp2/2PP4/PP3PPP/RNBQKBNR b KQkq e3 0 1',
        'legal': true,
        'move': 'fxe3',
        'next': 'rnbqkbnr/pppp2pp/8/4p3/8/2PPp3/PP3PPP/RNBQKBNR w KQkq - 0 2',
-       'captured': Chess.PAWN}
+       'captured': Chess960.PAWN}
     ];
 
     positions.forEach( (position) {
-      final chess = Chess();
+      final chess = Chess960();
       chess.load(position['fen']);
       test(position['fen'] + ' (' + position['move'] + ' ' + position['legal'].toString() + ')', () {
         var result = chess.move(position['move']);
@@ -768,7 +768,7 @@ void main() {
     positions.forEach((position) {
 
       test(position['fen'] + ' (valid: ' + (position['error_number']  == 0).toString() + ')', () {
-        var result = Chess.validate_fen(position['fen']);
+        var result = Chess960.validate_fen(position['fen']);
         expect(result['error_number'], equals(position['error_number']));
       });
 
@@ -778,7 +778,7 @@ void main() {
 
   group('History', () {
 
-    final chess = Chess();
+    final chess = Chess960();
     const tests = <Map<String, dynamic>>[
        {'verbose': false,
         'fen': '4q2k/2r1r3/4PR1p/p1p5/P1Bp1Q1P/1P6/6P1/6K1 b - - 4 41',
@@ -793,87 +793,87 @@ void main() {
        {'verbose': true,
         'fen': '4q2k/2r1r3/4PR1p/p1p5/P1Bp1Q1P/1P6/6P1/6K1 b - - 4 41',
         'moves': [
-          {'color': Chess.WHITE, 'from': 'c2', 'to': 'c4', 'flags': 'b', 'piece': Chess.PAWN, 'san': 'c4'},
-          {'color': Chess.BLACK, 'from': 'e7', 'to': 'e6', 'flags': 'n', 'piece': Chess.PAWN, 'san': 'e6'},
-          {'color': Chess.WHITE, 'from': 'g1', 'to': 'f3', 'flags': 'n', 'piece': Chess.KNIGHT, 'san': 'Nf3'},
-          {'color': Chess.BLACK, 'from': 'd7', 'to': 'd5', 'flags': 'b', 'piece': Chess.PAWN, 'san': 'd5'},
-          {'color': Chess.WHITE, 'from': 'd2', 'to': 'd4', 'flags': 'b', 'piece': Chess.PAWN, 'san': 'd4'},
-          {'color': Chess.BLACK, 'from': 'g8', 'to': 'f6', 'flags': 'n', 'piece': Chess.KNIGHT, 'san': 'Nf6'},
-          {'color': Chess.WHITE, 'from': 'b1', 'to': 'c3', 'flags': 'n', 'piece': Chess.KNIGHT, 'san': 'Nc3'},
-          {'color': Chess.BLACK, 'from': 'f8', 'to': 'e7', 'flags': 'n', 'piece': Chess.BISHOP, 'san': 'Be7'},
-          {'color': Chess.WHITE, 'from': 'c1', 'to': 'g5', 'flags': 'n', 'piece': Chess.BISHOP, 'san': 'Bg5'},
-          {'color': Chess.BLACK, 'from': 'e8', 'to': 'g8', 'flags': 'k', 'piece': Chess.KING, 'san': 'O-O'},
-          {'color': Chess.WHITE, 'from': 'e2', 'to': 'e3', 'flags': 'n', 'piece': Chess.PAWN, 'san': 'e3'},
-          {'color': Chess.BLACK, 'from': 'h7', 'to': 'h6', 'flags': 'n', 'piece': Chess.PAWN, 'san': 'h6'},
-          {'color': Chess.WHITE, 'from': 'g5', 'to': 'h4', 'flags': 'n', 'piece': Chess.BISHOP, 'san': 'Bh4'},
-          {'color': Chess.BLACK, 'from': 'b7', 'to': 'b6', 'flags': 'n', 'piece': Chess.PAWN, 'san': 'b6'},
-          {'color': Chess.WHITE, 'from': 'c4', 'to': 'd5', 'flags': 'c', 'piece': Chess.PAWN, 'captured': Chess.PAWN, 'san': 'cxd5'},
-          {'color': Chess.BLACK, 'from': 'f6', 'to': 'd5', 'flags': 'c', 'piece': Chess.KNIGHT, 'captured': Chess.PAWN, 'san': 'Nxd5'},
-          {'color': Chess.WHITE, 'from': 'h4', 'to': 'e7', 'flags': 'c', 'piece': Chess.BISHOP, 'captured': Chess.BISHOP, 'san': 'Bxe7'},
-          {'color': Chess.BLACK, 'from': 'd8', 'to': 'e7', 'flags': 'c', 'piece': Chess.QUEEN, 'captured': Chess.BISHOP, 'san': 'Qxe7'},
-          {'color': Chess.WHITE, 'from': 'c3', 'to': 'd5', 'flags': 'c', 'piece': Chess.KNIGHT, 'captured': Chess.KNIGHT, 'san': 'Nxd5'},
-          {'color': Chess.BLACK, 'from': 'e6', 'to': 'd5', 'flags': 'c', 'piece': Chess.PAWN, 'captured': Chess.KNIGHT, 'san': 'exd5'},
-          {'color': Chess.WHITE, 'from': 'a1', 'to': 'c1', 'flags': 'n', 'piece': Chess.ROOK, 'san': 'Rc1'},
-          {'color': Chess.BLACK, 'from': 'c8', 'to': 'e6', 'flags': 'n', 'piece': Chess.BISHOP, 'san': 'Be6'},
-          {'color': Chess.WHITE, 'from': 'd1', 'to': 'a4', 'flags': 'n', 'piece': Chess.QUEEN, 'san': 'Qa4'},
-          {'color': Chess.BLACK, 'from': 'c7', 'to': 'c5', 'flags': 'b', 'piece': Chess.PAWN, 'san': 'c5'},
-          {'color': Chess.WHITE, 'from': 'a4', 'to': 'a3', 'flags': 'n', 'piece': Chess.QUEEN, 'san': 'Qa3'},
-          {'color': Chess.BLACK, 'from': 'f8', 'to': 'c8', 'flags': 'n', 'piece': Chess.ROOK, 'san': 'Rc8'},
-          {'color': Chess.WHITE, 'from': 'f1', 'to': 'b5', 'flags': 'n', 'piece': Chess.BISHOP, 'san': 'Bb5'},
-          {'color': Chess.BLACK, 'from': 'a7', 'to': 'a6', 'flags': 'n', 'piece': Chess.PAWN, 'san': 'a6'},
-          {'color': Chess.WHITE, 'from': 'd4', 'to': 'c5', 'flags': 'c', 'piece': Chess.PAWN, 'captured': Chess.PAWN, 'san': 'dxc5'},
-          {'color': Chess.BLACK, 'from': 'b6', 'to': 'c5', 'flags': 'c', 'piece': Chess.PAWN, 'captured': Chess.PAWN, 'san': 'bxc5'},
-          {'color': Chess.WHITE, 'from': 'e1', 'to': 'g1', 'flags': 'k', 'piece': Chess.KING, 'san': 'O-O'},
-          {'color': Chess.BLACK, 'from': 'a8', 'to': 'a7', 'flags': 'n', 'piece': Chess.ROOK, 'san': 'Ra7'},
-          {'color': Chess.WHITE, 'from': 'b5', 'to': 'e2', 'flags': 'n', 'piece': Chess.BISHOP, 'san': 'Be2'},
-          {'color': Chess.BLACK, 'from': 'b8', 'to': 'd7', 'flags': 'n', 'piece': Chess.KNIGHT, 'san': 'Nd7'},
-          {'color': Chess.WHITE, 'from': 'f3', 'to': 'd4', 'flags': 'n', 'piece': Chess.KNIGHT, 'san': 'Nd4'},
-          {'color': Chess.BLACK, 'from': 'e7', 'to': 'f8', 'flags': 'n', 'piece': Chess.QUEEN, 'san': 'Qf8'},
-          {'color': Chess.WHITE, 'from': 'd4', 'to': 'e6', 'flags': 'c', 'piece': Chess.KNIGHT, 'captured': Chess.BISHOP, 'san': 'Nxe6'},
-          {'color': Chess.BLACK, 'from': 'f7', 'to': 'e6', 'flags': 'c', 'piece': Chess.PAWN, 'captured': Chess.KNIGHT, 'san': 'fxe6'},
-          {'color': Chess.WHITE, 'from': 'e3', 'to': 'e4', 'flags': 'n', 'piece': Chess.PAWN, 'san': 'e4'},
-          {'color': Chess.BLACK, 'from': 'd5', 'to': 'd4', 'flags': 'n', 'piece': Chess.PAWN, 'san': 'd4'},
-          {'color': Chess.WHITE, 'from': 'f2', 'to': 'f4', 'flags': 'b', 'piece': Chess.PAWN, 'san': 'f4'},
-          {'color': Chess.BLACK, 'from': 'f8', 'to': 'e7', 'flags': 'n', 'piece': Chess.QUEEN, 'san': 'Qe7'},
-          {'color': Chess.WHITE, 'from': 'e4', 'to': 'e5', 'flags': 'n', 'piece': Chess.PAWN, 'san': 'e5'},
-          {'color': Chess.BLACK, 'from': 'c8', 'to': 'b8', 'flags': 'n', 'piece': Chess.ROOK, 'san': 'Rb8'},
-          {'color': Chess.WHITE, 'from': 'e2', 'to': 'c4', 'flags': 'n', 'piece': Chess.BISHOP, 'san': 'Bc4'},
-          {'color': Chess.BLACK, 'from': 'g8', 'to': 'h8', 'flags': 'n', 'piece': Chess.KING, 'san': 'Kh8'},
-          {'color': Chess.WHITE, 'from': 'a3', 'to': 'h3', 'flags': 'n', 'piece': Chess.QUEEN, 'san': 'Qh3'},
-          {'color': Chess.BLACK, 'from': 'd7', 'to': 'f8', 'flags': 'n', 'piece': Chess.KNIGHT, 'san': 'Nf8'},
-          {'color': Chess.WHITE, 'from': 'b2', 'to': 'b3', 'flags': 'n', 'piece': Chess.PAWN, 'san': 'b3'},
-          {'color': Chess.BLACK, 'from': 'a6', 'to': 'a5', 'flags': 'n', 'piece': Chess.PAWN, 'san': 'a5'},
-          {'color': Chess.WHITE, 'from': 'f4', 'to': 'f5', 'flags': 'n', 'piece': Chess.PAWN, 'san': 'f5'},
-          {'color': Chess.BLACK, 'from': 'e6', 'to': 'f5', 'flags': 'c', 'piece': Chess.PAWN, 'captured': Chess.PAWN, 'san': 'exf5'},
-          {'color': Chess.WHITE, 'from': 'f1', 'to': 'f5', 'flags': 'c', 'piece': Chess.ROOK, 'captured': Chess.PAWN, 'san': 'Rxf5'},
-          {'color': Chess.BLACK, 'from': 'f8', 'to': 'h7', 'flags': 'n', 'piece': Chess.KNIGHT, 'san': 'Nh7'},
-          {'color': Chess.WHITE, 'from': 'c1', 'to': 'f1', 'flags': 'n', 'piece': Chess.ROOK, 'san': 'Rcf1'},
-          {'color': Chess.BLACK, 'from': 'e7', 'to': 'd8', 'flags': 'n', 'piece': Chess.QUEEN, 'san': 'Qd8'},
-          {'color': Chess.WHITE, 'from': 'h3', 'to': 'g3', 'flags': 'n', 'piece': Chess.QUEEN, 'san': 'Qg3'},
-          {'color': Chess.BLACK, 'from': 'a7', 'to': 'e7', 'flags': 'n', 'piece': Chess.ROOK, 'san': 'Re7'},
-          {'color': Chess.WHITE, 'from': 'h2', 'to': 'h4', 'flags': 'b', 'piece': Chess.PAWN, 'san': 'h4'},
-          {'color': Chess.BLACK, 'from': 'b8', 'to': 'b7', 'flags': 'n', 'piece': Chess.ROOK, 'san': 'Rbb7'},
-          {'color': Chess.WHITE, 'from': 'e5', 'to': 'e6', 'flags': 'n', 'piece': Chess.PAWN, 'san': 'e6'},
-          {'color': Chess.BLACK, 'from': 'b7', 'to': 'c7', 'flags': 'n', 'piece': Chess.ROOK, 'san': 'Rbc7'},
-          {'color': Chess.WHITE, 'from': 'g3', 'to': 'e5', 'flags': 'n', 'piece': Chess.QUEEN, 'san': 'Qe5'},
-          {'color': Chess.BLACK, 'from': 'd8', 'to': 'e8', 'flags': 'n', 'piece': Chess.QUEEN, 'san': 'Qe8'},
-          {'color': Chess.WHITE, 'from': 'a2', 'to': 'a4', 'flags': 'b', 'piece': Chess.PAWN, 'san': 'a4'},
-          {'color': Chess.BLACK, 'from': 'e8', 'to': 'd8', 'flags': 'n', 'piece': Chess.QUEEN, 'san': 'Qd8'},
-          {'color': Chess.WHITE, 'from': 'f1', 'to': 'f2', 'flags': 'n', 'piece': Chess.ROOK, 'san': 'R1f2'},
-          {'color': Chess.BLACK, 'from': 'd8', 'to': 'e8', 'flags': 'n', 'piece': Chess.QUEEN, 'san': 'Qe8'},
-          {'color': Chess.WHITE, 'from': 'f2', 'to': 'f3', 'flags': 'n', 'piece': Chess.ROOK, 'san': 'R2f3'},
-          {'color': Chess.BLACK, 'from': 'e8', 'to': 'd8', 'flags': 'n', 'piece': Chess.QUEEN, 'san': 'Qd8'},
-          {'color': Chess.WHITE, 'from': 'c4', 'to': 'd3', 'flags': 'n', 'piece': Chess.BISHOP, 'san': 'Bd3'},
-          {'color': Chess.BLACK, 'from': 'd8', 'to': 'e8', 'flags': 'n', 'piece': Chess.QUEEN, 'san': 'Qe8'},
-          {'color': Chess.WHITE, 'from': 'e5', 'to': 'e4', 'flags': 'n', 'piece': Chess.QUEEN, 'san': 'Qe4'},
-          {'color': Chess.BLACK, 'from': 'h7', 'to': 'f6', 'flags': 'n', 'piece': Chess.KNIGHT, 'san': 'Nf6'},
-          {'color': Chess.WHITE, 'from': 'f5', 'to': 'f6', 'flags': 'c', 'piece': Chess.ROOK, 'captured': Chess.KNIGHT, 'san': 'Rxf6'},
-          {'color': Chess.BLACK, 'from': 'g7', 'to': 'f6', 'flags': 'c', 'piece': Chess.PAWN, 'captured': Chess.ROOK, 'san': 'gxf6'},
-          {'color': Chess.WHITE, 'from': 'f3', 'to': 'f6', 'flags': 'c', 'piece': Chess.ROOK, 'captured': Chess.PAWN, 'san': 'Rxf6'},
-          {'color': Chess.BLACK, 'from': 'h8', 'to': 'g8', 'flags': 'n', 'piece': Chess.KING, 'san': 'Kg8'},
-          {'color': Chess.WHITE, 'from': 'd3', 'to': 'c4', 'flags': 'n', 'piece': Chess.BISHOP, 'san': 'Bc4'},
-          {'color': Chess.BLACK, 'from': 'g8', 'to': 'h8', 'flags': 'n', 'piece': Chess.KING, 'san': 'Kh8'},
-          {'color': Chess.WHITE, 'from': 'e4', 'to': 'f4', 'flags': 'n', 'piece': Chess.QUEEN, 'san': 'Qf4'}],
+          {'color': Chess960.WHITE, 'from': 'c2', 'to': 'c4', 'flags': 'b', 'piece': Chess960.PAWN, 'san': 'c4'},
+          {'color': Chess960.BLACK, 'from': 'e7', 'to': 'e6', 'flags': 'n', 'piece': Chess960.PAWN, 'san': 'e6'},
+          {'color': Chess960.WHITE, 'from': 'g1', 'to': 'f3', 'flags': 'n', 'piece': Chess960.KNIGHT, 'san': 'Nf3'},
+          {'color': Chess960.BLACK, 'from': 'd7', 'to': 'd5', 'flags': 'b', 'piece': Chess960.PAWN, 'san': 'd5'},
+          {'color': Chess960.WHITE, 'from': 'd2', 'to': 'd4', 'flags': 'b', 'piece': Chess960.PAWN, 'san': 'd4'},
+          {'color': Chess960.BLACK, 'from': 'g8', 'to': 'f6', 'flags': 'n', 'piece': Chess960.KNIGHT, 'san': 'Nf6'},
+          {'color': Chess960.WHITE, 'from': 'b1', 'to': 'c3', 'flags': 'n', 'piece': Chess960.KNIGHT, 'san': 'Nc3'},
+          {'color': Chess960.BLACK, 'from': 'f8', 'to': 'e7', 'flags': 'n', 'piece': Chess960.BISHOP, 'san': 'Be7'},
+          {'color': Chess960.WHITE, 'from': 'c1', 'to': 'g5', 'flags': 'n', 'piece': Chess960.BISHOP, 'san': 'Bg5'},
+          {'color': Chess960.BLACK, 'from': 'e8', 'to': 'g8', 'flags': 'k', 'piece': Chess960.KING, 'san': 'O-O'},
+          {'color': Chess960.WHITE, 'from': 'e2', 'to': 'e3', 'flags': 'n', 'piece': Chess960.PAWN, 'san': 'e3'},
+          {'color': Chess960.BLACK, 'from': 'h7', 'to': 'h6', 'flags': 'n', 'piece': Chess960.PAWN, 'san': 'h6'},
+          {'color': Chess960.WHITE, 'from': 'g5', 'to': 'h4', 'flags': 'n', 'piece': Chess960.BISHOP, 'san': 'Bh4'},
+          {'color': Chess960.BLACK, 'from': 'b7', 'to': 'b6', 'flags': 'n', 'piece': Chess960.PAWN, 'san': 'b6'},
+          {'color': Chess960.WHITE, 'from': 'c4', 'to': 'd5', 'flags': 'c', 'piece': Chess960.PAWN, 'captured': Chess960.PAWN, 'san': 'cxd5'},
+          {'color': Chess960.BLACK, 'from': 'f6', 'to': 'd5', 'flags': 'c', 'piece': Chess960.KNIGHT, 'captured': Chess960.PAWN, 'san': 'Nxd5'},
+          {'color': Chess960.WHITE, 'from': 'h4', 'to': 'e7', 'flags': 'c', 'piece': Chess960.BISHOP, 'captured': Chess960.BISHOP, 'san': 'Bxe7'},
+          {'color': Chess960.BLACK, 'from': 'd8', 'to': 'e7', 'flags': 'c', 'piece': Chess960.QUEEN, 'captured': Chess960.BISHOP, 'san': 'Qxe7'},
+          {'color': Chess960.WHITE, 'from': 'c3', 'to': 'd5', 'flags': 'c', 'piece': Chess960.KNIGHT, 'captured': Chess960.KNIGHT, 'san': 'Nxd5'},
+          {'color': Chess960.BLACK, 'from': 'e6', 'to': 'd5', 'flags': 'c', 'piece': Chess960.PAWN, 'captured': Chess960.KNIGHT, 'san': 'exd5'},
+          {'color': Chess960.WHITE, 'from': 'a1', 'to': 'c1', 'flags': 'n', 'piece': Chess960.ROOK, 'san': 'Rc1'},
+          {'color': Chess960.BLACK, 'from': 'c8', 'to': 'e6', 'flags': 'n', 'piece': Chess960.BISHOP, 'san': 'Be6'},
+          {'color': Chess960.WHITE, 'from': 'd1', 'to': 'a4', 'flags': 'n', 'piece': Chess960.QUEEN, 'san': 'Qa4'},
+          {'color': Chess960.BLACK, 'from': 'c7', 'to': 'c5', 'flags': 'b', 'piece': Chess960.PAWN, 'san': 'c5'},
+          {'color': Chess960.WHITE, 'from': 'a4', 'to': 'a3', 'flags': 'n', 'piece': Chess960.QUEEN, 'san': 'Qa3'},
+          {'color': Chess960.BLACK, 'from': 'f8', 'to': 'c8', 'flags': 'n', 'piece': Chess960.ROOK, 'san': 'Rc8'},
+          {'color': Chess960.WHITE, 'from': 'f1', 'to': 'b5', 'flags': 'n', 'piece': Chess960.BISHOP, 'san': 'Bb5'},
+          {'color': Chess960.BLACK, 'from': 'a7', 'to': 'a6', 'flags': 'n', 'piece': Chess960.PAWN, 'san': 'a6'},
+          {'color': Chess960.WHITE, 'from': 'd4', 'to': 'c5', 'flags': 'c', 'piece': Chess960.PAWN, 'captured': Chess960.PAWN, 'san': 'dxc5'},
+          {'color': Chess960.BLACK, 'from': 'b6', 'to': 'c5', 'flags': 'c', 'piece': Chess960.PAWN, 'captured': Chess960.PAWN, 'san': 'bxc5'},
+          {'color': Chess960.WHITE, 'from': 'e1', 'to': 'g1', 'flags': 'k', 'piece': Chess960.KING, 'san': 'O-O'},
+          {'color': Chess960.BLACK, 'from': 'a8', 'to': 'a7', 'flags': 'n', 'piece': Chess960.ROOK, 'san': 'Ra7'},
+          {'color': Chess960.WHITE, 'from': 'b5', 'to': 'e2', 'flags': 'n', 'piece': Chess960.BISHOP, 'san': 'Be2'},
+          {'color': Chess960.BLACK, 'from': 'b8', 'to': 'd7', 'flags': 'n', 'piece': Chess960.KNIGHT, 'san': 'Nd7'},
+          {'color': Chess960.WHITE, 'from': 'f3', 'to': 'd4', 'flags': 'n', 'piece': Chess960.KNIGHT, 'san': 'Nd4'},
+          {'color': Chess960.BLACK, 'from': 'e7', 'to': 'f8', 'flags': 'n', 'piece': Chess960.QUEEN, 'san': 'Qf8'},
+          {'color': Chess960.WHITE, 'from': 'd4', 'to': 'e6', 'flags': 'c', 'piece': Chess960.KNIGHT, 'captured': Chess960.BISHOP, 'san': 'Nxe6'},
+          {'color': Chess960.BLACK, 'from': 'f7', 'to': 'e6', 'flags': 'c', 'piece': Chess960.PAWN, 'captured': Chess960.KNIGHT, 'san': 'fxe6'},
+          {'color': Chess960.WHITE, 'from': 'e3', 'to': 'e4', 'flags': 'n', 'piece': Chess960.PAWN, 'san': 'e4'},
+          {'color': Chess960.BLACK, 'from': 'd5', 'to': 'd4', 'flags': 'n', 'piece': Chess960.PAWN, 'san': 'd4'},
+          {'color': Chess960.WHITE, 'from': 'f2', 'to': 'f4', 'flags': 'b', 'piece': Chess960.PAWN, 'san': 'f4'},
+          {'color': Chess960.BLACK, 'from': 'f8', 'to': 'e7', 'flags': 'n', 'piece': Chess960.QUEEN, 'san': 'Qe7'},
+          {'color': Chess960.WHITE, 'from': 'e4', 'to': 'e5', 'flags': 'n', 'piece': Chess960.PAWN, 'san': 'e5'},
+          {'color': Chess960.BLACK, 'from': 'c8', 'to': 'b8', 'flags': 'n', 'piece': Chess960.ROOK, 'san': 'Rb8'},
+          {'color': Chess960.WHITE, 'from': 'e2', 'to': 'c4', 'flags': 'n', 'piece': Chess960.BISHOP, 'san': 'Bc4'},
+          {'color': Chess960.BLACK, 'from': 'g8', 'to': 'h8', 'flags': 'n', 'piece': Chess960.KING, 'san': 'Kh8'},
+          {'color': Chess960.WHITE, 'from': 'a3', 'to': 'h3', 'flags': 'n', 'piece': Chess960.QUEEN, 'san': 'Qh3'},
+          {'color': Chess960.BLACK, 'from': 'd7', 'to': 'f8', 'flags': 'n', 'piece': Chess960.KNIGHT, 'san': 'Nf8'},
+          {'color': Chess960.WHITE, 'from': 'b2', 'to': 'b3', 'flags': 'n', 'piece': Chess960.PAWN, 'san': 'b3'},
+          {'color': Chess960.BLACK, 'from': 'a6', 'to': 'a5', 'flags': 'n', 'piece': Chess960.PAWN, 'san': 'a5'},
+          {'color': Chess960.WHITE, 'from': 'f4', 'to': 'f5', 'flags': 'n', 'piece': Chess960.PAWN, 'san': 'f5'},
+          {'color': Chess960.BLACK, 'from': 'e6', 'to': 'f5', 'flags': 'c', 'piece': Chess960.PAWN, 'captured': Chess960.PAWN, 'san': 'exf5'},
+          {'color': Chess960.WHITE, 'from': 'f1', 'to': 'f5', 'flags': 'c', 'piece': Chess960.ROOK, 'captured': Chess960.PAWN, 'san': 'Rxf5'},
+          {'color': Chess960.BLACK, 'from': 'f8', 'to': 'h7', 'flags': 'n', 'piece': Chess960.KNIGHT, 'san': 'Nh7'},
+          {'color': Chess960.WHITE, 'from': 'c1', 'to': 'f1', 'flags': 'n', 'piece': Chess960.ROOK, 'san': 'Rcf1'},
+          {'color': Chess960.BLACK, 'from': 'e7', 'to': 'd8', 'flags': 'n', 'piece': Chess960.QUEEN, 'san': 'Qd8'},
+          {'color': Chess960.WHITE, 'from': 'h3', 'to': 'g3', 'flags': 'n', 'piece': Chess960.QUEEN, 'san': 'Qg3'},
+          {'color': Chess960.BLACK, 'from': 'a7', 'to': 'e7', 'flags': 'n', 'piece': Chess960.ROOK, 'san': 'Re7'},
+          {'color': Chess960.WHITE, 'from': 'h2', 'to': 'h4', 'flags': 'b', 'piece': Chess960.PAWN, 'san': 'h4'},
+          {'color': Chess960.BLACK, 'from': 'b8', 'to': 'b7', 'flags': 'n', 'piece': Chess960.ROOK, 'san': 'Rbb7'},
+          {'color': Chess960.WHITE, 'from': 'e5', 'to': 'e6', 'flags': 'n', 'piece': Chess960.PAWN, 'san': 'e6'},
+          {'color': Chess960.BLACK, 'from': 'b7', 'to': 'c7', 'flags': 'n', 'piece': Chess960.ROOK, 'san': 'Rbc7'},
+          {'color': Chess960.WHITE, 'from': 'g3', 'to': 'e5', 'flags': 'n', 'piece': Chess960.QUEEN, 'san': 'Qe5'},
+          {'color': Chess960.BLACK, 'from': 'd8', 'to': 'e8', 'flags': 'n', 'piece': Chess960.QUEEN, 'san': 'Qe8'},
+          {'color': Chess960.WHITE, 'from': 'a2', 'to': 'a4', 'flags': 'b', 'piece': Chess960.PAWN, 'san': 'a4'},
+          {'color': Chess960.BLACK, 'from': 'e8', 'to': 'd8', 'flags': 'n', 'piece': Chess960.QUEEN, 'san': 'Qd8'},
+          {'color': Chess960.WHITE, 'from': 'f1', 'to': 'f2', 'flags': 'n', 'piece': Chess960.ROOK, 'san': 'R1f2'},
+          {'color': Chess960.BLACK, 'from': 'd8', 'to': 'e8', 'flags': 'n', 'piece': Chess960.QUEEN, 'san': 'Qe8'},
+          {'color': Chess960.WHITE, 'from': 'f2', 'to': 'f3', 'flags': 'n', 'piece': Chess960.ROOK, 'san': 'R2f3'},
+          {'color': Chess960.BLACK, 'from': 'e8', 'to': 'd8', 'flags': 'n', 'piece': Chess960.QUEEN, 'san': 'Qd8'},
+          {'color': Chess960.WHITE, 'from': 'c4', 'to': 'd3', 'flags': 'n', 'piece': Chess960.BISHOP, 'san': 'Bd3'},
+          {'color': Chess960.BLACK, 'from': 'd8', 'to': 'e8', 'flags': 'n', 'piece': Chess960.QUEEN, 'san': 'Qe8'},
+          {'color': Chess960.WHITE, 'from': 'e5', 'to': 'e4', 'flags': 'n', 'piece': Chess960.QUEEN, 'san': 'Qe4'},
+          {'color': Chess960.BLACK, 'from': 'h7', 'to': 'f6', 'flags': 'n', 'piece': Chess960.KNIGHT, 'san': 'Nf6'},
+          {'color': Chess960.WHITE, 'from': 'f5', 'to': 'f6', 'flags': 'c', 'piece': Chess960.ROOK, 'captured': Chess960.KNIGHT, 'san': 'Rxf6'},
+          {'color': Chess960.BLACK, 'from': 'g7', 'to': 'f6', 'flags': 'c', 'piece': Chess960.PAWN, 'captured': Chess960.ROOK, 'san': 'gxf6'},
+          {'color': Chess960.WHITE, 'from': 'f3', 'to': 'f6', 'flags': 'c', 'piece': Chess960.ROOK, 'captured': Chess960.PAWN, 'san': 'Rxf6'},
+          {'color': Chess960.BLACK, 'from': 'h8', 'to': 'g8', 'flags': 'n', 'piece': Chess960.KING, 'san': 'Kg8'},
+          {'color': Chess960.WHITE, 'from': 'd3', 'to': 'c4', 'flags': 'n', 'piece': Chess960.BISHOP, 'san': 'Bc4'},
+          {'color': Chess960.BLACK, 'from': 'g8', 'to': 'h8', 'flags': 'n', 'piece': Chess960.KING, 'san': 'Kh8'},
+          {'color': Chess960.WHITE, 'from': 'e4', 'to': 'f4', 'flags': 'n', 'piece': Chess960.QUEEN, 'san': 'Qf4'}],
          }
     ];
 
@@ -919,7 +919,7 @@ void main() {
   group('Regression Tests', () {
     // Github Issue #32 reported by AlgoTrader
     test('Issue #32 - castling flag reappearing', () {
-      final chess = Chess.fromFEN('b3k2r/5p2/4p3/1p5p/6p1/2PR2P1/BP3qNP/6QK b k - 2 28');
+      final chess = Chess960.fromFEN('b3k2r/5p2/4p3/1p5p/6p1/2PR2P1/BP3qNP/6QK b k - 2 28');
       chess.move({'from':'a8', 'to':'g2'});
       expect(chess.fen, equals('4k2r/5p2/4p3/1p5p/6p1/2PR2P1/BP3qbP/6QK w k - 0 29'));
     });

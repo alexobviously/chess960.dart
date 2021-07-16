@@ -1,7 +1,7 @@
-name: chess
-version: 0.7.0
-description: A port of chess.js to Dart. chess.dart is a library for legal chess move generation, maintenance of chess game state, and conversion to and from the formats FEN and PGN.
-homepage: https://github.com/davecom/chess.dart
+name: chess960
+version: 1.0.0
+description: Chess960.dart is a fork of the chess.dart package. It is a library for legal chess960 move generation, maintenance of game state, and conversion to and from the FEN and PGN formats.
+homepage: https://github.com/alexobviously/chess960.dart
 dev_dependencies:
   benchmark_harness: ^2.0.0
   test: ^1.17.8
