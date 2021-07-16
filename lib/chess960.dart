@@ -2,15 +2,19 @@ library chess960;
 
 import 'dart:math';
 
-/*  Copyright (c) 2014, David Kopec (my first name at oaksnow dot com)
- *  Released under the MIT license
- *  https://github.com/davecom/chess.dart/blob/master/LICENSE
- *
- *  Based on chess.js
- *  Copyright (c) 2013, Jeff Hlywa (jhlywa@gmail.com)
- *  Released under the BSD license
- *  https://github.com/jhlywa/chess.js/blob/master/LICENSE
- */
+//    Copyright (c) 2021, Alex Baker (iamalexbaker@gmail.com)
+//    Released under the MIT license
+//    https://github.com/alexobviously/chess960.dart/blob/master/LICENSE
+
+//    Based on chess.dart
+//    Copyright (c) 2014, David Kopec (my first name at oaksnow dot com)
+//    Released under the MIT license
+//    https://github.com/davecom/chess.dart/blob/master/LICENSE
+
+//    Based on chess.js
+//    Copyright (c) 2013, Jeff Hlywa (jhlywa@gmail.com)
+//    Released under the BSD license
+//    https://github.com/jhlywa/chess.js/blob/master/LICENSE
 
 class Chess960 {
 
