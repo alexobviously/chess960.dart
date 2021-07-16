@@ -1175,6 +1175,8 @@ class Chess960 {
     return s;
   }
 
+  void swap_sides() => turn = swap_color(turn);
+
   // Utility Functions
   static int rank(int i) {
     return i >> 4;
@@ -1294,6 +1296,15 @@ class Chess960 {
     }
 
     return moves;
+  }
+
+  List premoves([Map? options]) {
+    if(options == null) options = {'legal': false};
+    if(options['legal'] == null || options['legal'] != false) options['legal'] = false;
+    swap_sides();
+    List _moves = moves(options);
+    swap_sides();
+    return _moves;
   }
 
   bool get in_draw {
