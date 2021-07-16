@@ -1484,13 +1484,14 @@ class Chess960 {
       header_string = '';
     }
 
-    reset();
-
     /* parse PGN header */
     final headers = parse_pgn_header(header_string, options);
     for (var key in headers.keys) {
       set_header([key, headers[key]]);
     }
+
+    String startFen = headers['FEN'] ?? DEFAULT_POSITION;
+    load(startFen);
 
     /* delete header to get the moves */
     var ms = pgn.replaceAll(header_string, '').replaceAll(RegExp(mask(newline_char)), ' ');
