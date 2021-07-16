@@ -151,6 +151,10 @@ class Chess960 {
              {'square': SQUARES_H8, 'flag': BITS_KSIDE_CASTLE} ]
   };
 
+  static const DEFAULT_HEADER = const {
+    'Variant': 'Chess960',
+  };
+
   // Instance Variables
   List<Piece?> board = []..length = 128;
   ColorMap<int> kings = ColorMap(EMPTY);
@@ -160,7 +164,7 @@ class Chess960 {
   int half_moves = 0;
   int move_number = 1;
   List<State> history = [];
-  Map header = {};
+  Map header = Map.from(DEFAULT_HEADER);
 
   Chess960() {
     load(random_start_fen());
@@ -195,7 +199,7 @@ class Chess960 {
     half_moves = 0;
     move_number = 1;
     history = [];
-    header = {};
+    header = Map.from(DEFAULT_HEADER);
     update_setup(generate_fen());
   }
 
@@ -534,7 +538,7 @@ class Chess960 {
     if (history.isNotEmpty) return;
 
     if (fen != DEFAULT_POSITION) {
-      header['SetUp'] = '1';
+      //header['SetUp'] = '1';
       header['FEN'] = fen;
     } else {
       header.remove('SetUp');

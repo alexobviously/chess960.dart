@@ -26,4 +26,6 @@ void main() {
   if (chess.insufficient_material) {
     print('Insufficient Material');
   }
+
+  print('\nPGN:\n${chess.pgn()}');
 }
