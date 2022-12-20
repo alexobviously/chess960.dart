@@ -1,6 +1,8 @@
 chess960.dart
 ==========
 
+**This package should be considered deprecated. Try using [Bishop](https://pub.dev/packages/bishop) instead.**
+
 chess960.dart is based on [chess.dart](https://pub.dev/packages/chess), with some light modifications
 to adapt it to [Chess 960](https://en.wikipedia.org/wiki/Fischer_random_chess) rules.
 

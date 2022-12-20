@@ -1,6 +1,6 @@
 name: chess960
-version: 1.0.2
-description: Chess960.dart is a fork of the chess.dart package. A library for legal chess960 move generation, maintenance of game state, and conversion to and from the FEN and PGN formats.
+version: 1.0.3
+description: Deprecated - use Bishop instead. Chess960.dart is a fork of the chess.dart package. A library for legal chess960 move generation, maintenance of game state, and conversion to and from the FEN and PGN formats.
 homepage: https://github.com/alexobviously/chess960.dart
 dev_dependencies:
   benchmark_harness: ^2.0.0
